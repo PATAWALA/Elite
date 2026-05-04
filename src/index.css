@@ -1,0 +1,58 @@
+@import "tailwindcss";
+
+@theme {
+  --color-primary-50: #fff7ed;
+  --color-primary-100: #ffedd5;
+  --color-primary-200: #fed7aa;
+  --color-primary-300: #fdba74;
+  --color-primary-400: #fb923c;
+  --color-primary-500: #f97316;
+  --color-primary-600: #ea580c;
+  --color-primary-700: #c2410c;
+  --color-primary-800: #9a3412;
+  --color-primary-900: #7c2d12;
+  --color-primary-950: #431407;
+  
+  --color-surface-dark: #1a1a1a;
+  --color-surface-card: #ffffff;
+  --color-accent-gold: #f59e0b;
+}
+
+/* Animations */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideInRight {
+  from { opacity: 0; transform: translateX(30px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes pulse-orange {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(249, 115, 22, 0.4); }
+  50% { box-shadow: 0 0 0 15px rgba(249, 115, 22, 0); }
+}
+
+@utility animate-fade-in-up {
+  animation: fadeInUp 0.6s ease-out forwards;
+}
+
+@utility animate-slide-in-right {
+  animation: slideInRight 0.5s ease-out forwards;
+}
+
+@utility animate-pulse-orange {
+  animation: pulse-orange 2s infinite;
+}
+
+/* Scrollbar orange */
+::-webkit-scrollbar { width: 8px; }
+::-webkit-scrollbar-track { background: #1a1a1a; }
+::-webkit-scrollbar-thumb { background: #f97316; border-radius: 4px; }
+
+/* Styles globaux */
+body {
+  background-color: #fafafa;
+  color: #1a1a1a;
+}
