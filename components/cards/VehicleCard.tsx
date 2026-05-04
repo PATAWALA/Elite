@@ -15,10 +15,13 @@ const VehicleCard = ({ vehicle, index = 0 }: VehicleCardProps) => {
   const [added, setAdded] = useState(false);
 
   const isInCart = cart.items.some(
-    item => item.type === 'vehicle' && item.vehicle.id === vehicle.id
+    item => item.type === 'vehicle' && item.vehicle?.id === vehicle.id
   );
 
-  const formatPrice = (price: number) => {
+  const formatPrice = (price: number, currency: string = 'FCFA') => {
+    if (!price) return '—';
+    if (currency === 'USD') return '$' + new Intl.NumberFormat('fr-FR').format(price);
+    if (currency === 'GNF') return new Intl.NumberFormat('fr-FR').format(price) + ' GNF';
     return new Intl.NumberFormat('fr-FR').format(price) + ' FCFA';
   };
 
@@ -46,9 +49,12 @@ const VehicleCard = ({ vehicle, index = 0 }: VehicleCardProps) => {
             alt={`${vehicle.brand} ${vehicle.model}`}
             className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
           />
+          
+          {/* UN SEUL BADGE */}
           <span className="absolute top-3 left-3 bg-primary-500 text-white text-xs font-bold px-3 py-1 rounded-full">
-            {vehicle.category || vehicle.location}
+            {vehicle.category || 'SUV'}
           </span>
+          
           {vehicle.featured && (
             <span className="absolute top-3 right-3 bg-yellow-400 text-gray-900 text-xs font-bold px-3 py-1 rounded-full flex items-center gap-1">
               <FaStar /> Top
@@ -73,13 +79,21 @@ const VehicleCard = ({ vehicle, index = 0 }: VehicleCardProps) => {
             </span>
           </div>
           
-          <p className="text-primary-600 font-extrabold text-2xl mt-3">
-            {formatPrice(vehicle.price)}
-          </p>
+          {/* Prix */}
+          <div className="mt-3">
+            <p className="text-primary-600 font-extrabold text-xl">
+              {formatPrice(vehicle.price_fcfa || vehicle.price, 'FCFA')}
+            </p>
+            <div className="flex gap-3 text-xs text-gray-400 mt-0.5">
+              <span>{formatPrice(vehicle.price_usd, 'USD')}</span>
+              <span>•</span>
+              <span>{formatPrice(vehicle.price_gnf, 'GNF')}</span>
+            </div>
+          </div>
         </div>
       </Link>
 
-      {/* Boutons d'action */}
+      {/* Boutons */}
       <div className="px-5 pb-5 flex gap-2">
         <Link
           to={`/vehicles/${vehicle.id}`}
@@ -98,13 +112,9 @@ const VehicleCard = ({ vehicle, index = 0 }: VehicleCardProps) => {
           }`}
         >
           {added ? (
-            <>
-              <FaCheck /> Ajouté !
-            </>
+            <><FaCheck /> Ajouté !</>
           ) : (
-            <>
-              <FaShoppingCart /> {isInCart ? ' +1' : 'Ajouter'}
-            </>
+            <><FaShoppingCart /> {isInCart ? ' +1' : 'Ajouter'}</>
           )}
         </button>
       </div>

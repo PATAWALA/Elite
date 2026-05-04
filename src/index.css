@@ -41,7 +41,17 @@
 @utility animate-slide-in-right {
   animation: slideInRight 0.5s ease-out forwards;
 }
+.input-admin {
+  @apply px-3 py-2.5 border border-gray-200 rounded-lg text-sm bg-white focus:outline-none focus:border-primary-500 focus:ring-2 focus:ring-primary-500/10 transition w-full;
+}
 
+.btn-admin-primary {
+  @apply bg-primary-500 text-white px-5 py-2.5 rounded-xl font-bold text-sm hover:bg-primary-600 transition flex items-center gap-2 shadow-sm;
+}
+
+.btn-admin-secondary {
+  @apply bg-gray-100 text-gray-600 px-5 py-2.5 rounded-xl font-bold text-sm hover:bg-gray-200 transition flex items-center gap-2;
+}
 @utility animate-pulse-orange {
   animation: pulse-orange 2s infinite;
 }

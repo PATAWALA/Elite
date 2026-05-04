@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { FaArrowRight } from 'react-icons/fa';
-import { useVehicles } from '../../src/hooks/useVehicles';
+import { useVehicles } from '../../src/hooks/useVehicles'; // ✅ chemin corrigé
 import LoadingSpinner from '../ui/LoadingSpinner';
 import VehicleCard from '../cards/VehicleCard';
 
@@ -23,13 +23,13 @@ const FeaturedVehicles = () => {
   const { vehicles, loading, error } = useVehicles({
     featured: true,
     category: selectedCategory,
-    limit: 3
+    limit: 6   // ✅ 6 véhicules affichés
   });
 
   return (
     <section className="py-16 lg:py-20 bg-gray-50">
       <div className="max-w-7xl mx-auto px-4">
-        {/* Titre + Filtres sur la même ligne */}
+        {/* Titre + Filtres */}
         <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6 mb-10">
           <div>
             <span className="text-primary-500 font-bold text-sm uppercase tracking-widest">
@@ -43,7 +43,6 @@ const FeaturedVehicles = () => {
             </p>
           </div>
           
-          {/* Filtres catégories */}
           <div className="flex flex-wrap gap-1.5">
             {CATEGORIES.map(cat => (
               <motion.button
@@ -63,7 +62,7 @@ const FeaturedVehicles = () => {
           </div>
         </div>
 
-        {/* Grille */}
+        {/* Grille 3 colonnes (2 sur mobile) – 6 véhicules */}
         {loading ? (
           <LoadingSpinner message="Chargement..." />
         ) : error ? (

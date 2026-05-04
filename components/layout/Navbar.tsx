@@ -2,8 +2,7 @@ import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { 
-  FaShip, FaShoppingCart, FaBars, FaTimes, 
-  FaWhatsapp
+  FaShip, FaShoppingCart, FaBars, FaTimes
 } from 'react-icons/fa';
 import { useCart } from '../../contexts/CartContext';
 
@@ -35,8 +34,6 @@ const Navbar = () => {
     return location.pathname.startsWith(path);
   };
 
-  const WHATSAPP_NUMBER = '14374442288';
-
   const NAV_LINKS = [
     { path: '/', label: 'Accueil' },
     { path: '/vehicles', label: 'Véhicules' },
@@ -51,6 +48,14 @@ const Navbar = () => {
     { path: '/contact', label: 'Contact', icon: '📞' },
   ];
 
+  const formatCartAmount = () => {
+    if (cart.totalAmount === 0) return '';
+    if (cart.totalAmount >= 1000000) {
+      return (cart.totalAmount / 1000000).toFixed(1) + 'M FCFA';
+    }
+    return new Intl.NumberFormat('fr-FR').format(cart.totalAmount) + ' FCFA';
+  };
+
   return (
     <header
       className={`sticky top-0 z-50 transition-all duration-300 ${
@@ -60,7 +65,7 @@ const Navbar = () => {
       }`}
     >
       <div className={`max-w-7xl mx-auto px-4 flex justify-between items-center transition-all duration-300 ${
-        scrolled ? 'py-2' : 'py-3'
+        scrolled ? 'py-2.5' : 'py-3.5'
       }`}>
         {/* Logo */}
         <Link 
@@ -68,7 +73,6 @@ const Navbar = () => {
           className="flex items-center gap-3 group"
           onClick={closeMobile}
         >
-          {/* Icône logo */}
           <div className="relative flex-shrink-0">
             <div className="w-11 h-11 bg-gradient-to-br from-primary-500 to-primary-700 rounded-xl flex items-center justify-center shadow-lg shadow-primary-500/30 group-hover:shadow-primary-500/50 transition-all">
               <FaShip className="text-white text-lg" />
@@ -76,7 +80,6 @@ const Navbar = () => {
             <div className="absolute -top-0.5 -right-0.5 w-2.5 h-2.5 bg-green-400 rounded-full border-2 border-white"></div>
           </div>
 
-          {/* Texte logo */}
           <div className="leading-tight">
             <span className="block text-base lg:text-lg font-extrabold text-primary-600 tracking-tight">
               ÉLITE TRANSIT
@@ -96,7 +99,7 @@ const Navbar = () => {
             <Link
               key={item.path}
               to={item.path}
-              className={`relative px-4 py-2 rounded-lg text-sm font-semibold transition-all ${
+              className={`relative px-4 py-2.5 rounded-lg text-sm font-semibold transition-all ${
                 isActive(item.path)
                   ? 'text-primary-600 bg-primary-50'
                   : 'text-gray-600 hover:text-primary-600 hover:bg-gray-50'
@@ -115,11 +118,59 @@ const Navbar = () => {
         </nav>
 
         {/* Actions Desktop */}
-        <div className="hidden lg:flex items-center gap-2">
-          {/* Panier */}
+        <div className="hidden lg:flex items-center gap-3">
+          {/* Panier premium */}
           <Link
             to="/cart"
-            className="relative p-2.5 rounded-xl transition-all bg-gray-50 hover:bg-primary-50 text-gray-600 hover:text-primary-600 shadow-sm"
+            className="relative flex items-center gap-2.5 bg-gray-50 hover:bg-primary-50 px-4 py-2.5 rounded-xl transition-all group shadow-sm border border-gray-100 hover:border-primary-200"
+          >
+            <div className="relative">
+              <FaShoppingCart className="text-gray-600 group-hover:text-primary-500 transition text-base" />
+              {cartCount > 0 && (
+                <motion.span
+                  key={cartCount}
+                  initial={{ scale: 0 }}
+                  animate={{ scale: 1 }}
+                  className="absolute -top-2 -right-2 bg-primary-500 text-white text-[10px] font-bold w-4 h-4 rounded-full flex items-center justify-center shadow-md"
+                >
+                  {cartCount > 9 ? '9+' : cartCount}
+                </motion.span>
+              )}
+            </div>
+            <div className="text-left leading-tight">
+              <span className="block text-xs font-bold text-gray-700 group-hover:text-primary-600 transition">
+                Panier
+              </span>
+              {cartCount > 0 ? (
+                <span className="block text-[10px] text-primary-500 font-semibold">
+                  {cartCount} article{cartCount > 1 ? 's' : ''}
+                  {cart.totalAmount > 0 && ` • ${formatCartAmount()}`}
+                </span>
+              ) : (
+                <span className="block text-[10px] text-gray-400">
+                  Vide
+                </span>
+              )}
+            </div>
+          </Link>
+
+          {/* CTA */}
+          <Link
+            to="/vehicles"
+            className="flex items-center gap-2 bg-primary-500 text-white px-5 py-3 rounded-xl font-bold text-sm transition-all hover:bg-primary-600 shadow-lg shadow-primary-500/25"
+          >
+            <FaShip className="text-sm" />
+            Voir les offres
+          </Link>
+        </div>
+
+        {/* Bouton Menu Mobile */}
+        <div className="flex lg:hidden items-center gap-2">
+          {/* Panier mobile */}
+          <Link
+            to="/cart"
+            className="relative p-2.5 rounded-xl bg-gray-50 text-gray-600 shadow-sm"
+            onClick={closeMobile}
           >
             <FaShoppingCart className="text-base" />
             {cartCount > 0 && (
@@ -129,40 +180,19 @@ const Navbar = () => {
                 animate={{ scale: 1 }}
                 className="absolute -top-1 -right-1 bg-primary-500 text-white text-[10px] font-bold w-5 h-5 rounded-full flex items-center justify-center"
               >
-                {cartCount > 99 ? '99+' : cartCount}
+                {cartCount > 9 ? '9+' : cartCount}
               </motion.span>
             )}
           </Link>
 
-          {/* WhatsApp */}
-          <a
-            href={`https://wa.me/${WHATSAPP_NUMBER}`}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center gap-1.5 bg-green-500 text-white px-4 py-2.5 rounded-xl font-bold text-sm transition-all hover:bg-green-400 shadow-lg shadow-green-500/25"
+          <button
+            onClick={toggleMobile}
+            className="p-2.5 rounded-xl text-gray-600 hover:bg-gray-100 transition-all"
+            aria-label="Menu"
           >
-            <FaWhatsapp className="text-sm" />
-            WhatsApp
-          </a>
-
-          {/* CTA */}
-          <Link
-            to="/vehicles"
-            className="flex items-center gap-1.5 bg-primary-500 text-white px-4 py-2.5 rounded-xl font-bold text-sm transition-all hover:bg-primary-600 shadow-lg shadow-primary-500/25"
-          >
-            <FaShip className="text-sm" />
-            Voir les offres
-          </Link>
+            {mobileOpen ? <FaTimes className="text-xl" /> : <FaBars className="text-xl" />}
+          </button>
         </div>
-
-        {/* Bouton Menu Mobile */}
-        <button
-          onClick={toggleMobile}
-          className="lg:hidden p-2.5 rounded-xl text-gray-600 hover:bg-gray-100 transition-all"
-          aria-label="Menu"
-        >
-          {mobileOpen ? <FaTimes className="text-xl" /> : <FaBars className="text-xl" />}
-        </button>
       </div>
 
       {/* Menu Mobile */}
@@ -195,38 +225,14 @@ const Navbar = () => {
                 </Link>
               ))}
 
-              {/* Panier mobile */}
-              <Link
-                to="/cart"
-                onClick={closeMobile}
-                className="flex items-center gap-3 px-4 py-3 rounded-xl text-base font-semibold text-gray-600 hover:bg-gray-50 hover:text-primary-600 transition-all"
-              >
-                <span>🛒</span>
-                Panier
-                {cartCount > 0 && (
-                  <span className="ml-auto bg-primary-500 text-white text-xs font-bold px-2 py-1 rounded-full">
-                    {cartCount}
-                  </span>
-                )}
-              </Link>
-
-              {/* CTA Mobile */}
-              <div className="pt-3 space-y-2">
+              <div className="pt-3">
                 <Link
                   to="/vehicles"
                   onClick={closeMobile}
-                  className="flex items-center justify-center gap-2 w-full bg-primary-500 text-white py-3 rounded-xl font-bold hover:bg-primary-600 transition-all"
+                  className="flex items-center justify-center gap-2 w-full bg-primary-500 text-white py-3.5 rounded-xl font-bold hover:bg-primary-600 transition-all"
                 >
-                  <FaShip /> Voir les véhicules
+                  <FaShip /> Voir les offres
                 </Link>
-                <a
-                  href={`https://wa.me/${WHATSAPP_NUMBER}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center justify-center gap-2 w-full bg-green-500 text-white py-3 rounded-xl font-bold hover:bg-green-400 transition-all"
-                >
-                  <FaWhatsapp /> WhatsApp
-                </a>
               </div>
             </div>
           </motion.div>
