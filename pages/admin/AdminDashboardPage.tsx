@@ -143,7 +143,7 @@ const AdminDashboardPage = () => {
   };
 
   // -------- ACTIONS --------
-  const handleLogout = async () => { await logout(); navigate('/admin/login', { replace: true }); };
+  const handleLogout = async () => { await logout(); navigate('/', { replace: true }); };
   const formatPrice = (p: number) => new Intl.NumberFormat('fr-FR').format(p) + ' FCFA';
   const formatDate = (d: string) => new Date(d).toLocaleDateString('fr-FR', { day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' });
 
@@ -233,18 +233,66 @@ const AdminDashboardPage = () => {
   };
 
   const inviteAdmin = async () => {
-    if (!adminEmail) return alert('Entre un email');
-    const { error } = await supabase.auth.admin.inviteUserByEmail(adminEmail);
-    if (error) alert('Erreur: ' + error.message);
-    else { alert('Invitation envoyée à ' + adminEmail); setAdminEmail(''); fetchAdmins(); }
-  };
+  if (!adminEmail) return alert('Veuillez entrer un email.');
+
+  try {
+    const res = await fetch(
+      'https://pvpdcwwufyekltuemlyp.supabase.co/functions/v1/dynamic-action',
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'apikey': import.meta.env.VITE_SUPABASE_ANON_KEY,
+          'Authorization': `Bearer ${import.meta.env.VITE_SUPABASE_ANON_KEY}`
+        },
+        body: JSON.stringify({
+          action: 'invite',
+          email: adminEmail.trim()
+        })
+      }
+    );
+    const result = await res.json();
+    if (!res.ok || result.error) {
+      throw new Error(result.error || 'Erreur lors de l\'invitation');
+    }
+
+    alert(`Invitation envoyée à ${adminEmail}`);
+    setAdminEmail('');
+    fetchAdmins(); // rafraîchir la liste
+  } catch (err: any) {
+    alert('Erreur: ' + err.message);
+  }
+};
 
   const deleteAdmin = async (userId: string) => {
-    if (!confirm('Supprimer cet administrateur ?')) return;
-    const { error } = await supabase.auth.admin.deleteUser(userId);
-    if (error) alert('Erreur: ' + error.message);
-    else fetchAdmins();
-  };
+  if (!confirm('Supprimer cet administrateur ?')) return;
+
+  try {
+    const res = await fetch(
+      'https://pvpdcwwufyekltuemlyp.supabase.co/functions/v1/dynamic-action',
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'apikey': import.meta.env.VITE_SUPABASE_ANON_KEY,
+          'Authorization': `Bearer ${import.meta.env.VITE_SUPABASE_ANON_KEY}`
+        },
+        body: JSON.stringify({
+          action: 'delete',
+          userId
+        })
+      }
+    );
+    const result = await res.json();
+    if (!res.ok || result.error) {
+      throw new Error(result.error || 'Erreur lors de la suppression');
+    }
+
+    fetchAdmins(); // rafraîchir la liste
+  } catch (err: any) {
+    alert('Erreur: ' + err.message);
+  }
+};
 
   const handleEditVehicle = (v: Vehicle) => {
     setEditingVehicleId(v.id);
