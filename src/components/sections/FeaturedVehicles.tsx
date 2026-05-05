@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { FaArrowRight } from 'react-icons/fa';
-import { useVehicles } from '../../src/hooks/useVehicles'; // ✅ chemin corrigé
+import { useVehicles } from '../../hooks/useVehicles';
 import LoadingSpinner from '../ui/LoadingSpinner';
 import VehicleCard from '../cards/VehicleCard';
 

@@ -1,8 +1,8 @@
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { FaShoppingCart, FaCheck } from 'react-icons/fa';
-import type { Product } from '../../types/vehicle';
-import { useCart } from '../../contexts/CartContext';
+import type { Product } from '../../../types/vehicle';
+import { useCart } from '../../../contexts/CartContext';
 import { useState } from 'react';
 
 interface ProductCardProps {

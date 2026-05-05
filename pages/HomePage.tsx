@@ -1,8 +1,8 @@
-import HeroSection from '../components/sections/HeroSection';
-import FeaturedVehicles from '../components/sections/FeaturedVehicles';
-import OtherProducts from '../components/sections/OtherProducts';
-import WhyChooseUs from '../components/sections/WhyChooseUs';
-import CtaSection from '../components/sections/CtaSection';
+import HeroSection from '../src/components/sections/HeroSection';
+import FeaturedVehicles from '../src/components/sections/FeaturedVehicles';
+import OtherProducts from '../src/components/sections/OtherProducts';
+import WhyChooseUs from '../src/components/sections/WhyChooseUs';
+import CtaSection from '../src/components/sections/CtaSection';
 
 const HomePage = () => {
   return (

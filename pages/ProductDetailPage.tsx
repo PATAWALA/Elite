@@ -8,7 +8,7 @@ import {
 } from 'react-icons/fa';
 import { supabase } from '../lib/supabaseClient';
 import { useCart } from '../contexts/CartContext';
-import LoadingSpinner from '../components/ui/LoadingSpinner';
+import LoadingSpinner from '../src/components/ui/LoadingSpinner';
 import type { Product } from '../types/vehicle';
 
 const ProductDetailPage = () => {

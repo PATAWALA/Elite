@@ -2,8 +2,8 @@ import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { FaSearch, FaWhatsapp, FaShip } from 'react-icons/fa';
 import { useProducts } from '../src/hooks/useProducts';
-import LoadingSpinner from '../components/ui/LoadingSpinner';
-import ProductCard from '../components/cards/ProductCard';
+import LoadingSpinner from '../src/components/ui/LoadingSpinner';
+import ProductCard from '../src/components/cards/ProductCard';
 
 const CATEGORIES = [
   { value: 'all', label: '📱 Tous' },

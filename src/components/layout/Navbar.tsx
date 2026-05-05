@@ -2,9 +2,11 @@ import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { 
-  FaShip, FaShoppingCart, FaBars, FaTimes
+  FaShoppingCart, FaBars, FaTimes
 } from 'react-icons/fa';
-import { useCart } from '../../contexts/CartContext';
+import { useCart } from '../../../contexts/CartContext';
+import logoImage from '../../assets/images/logo.jpg'
+
 
 const Navbar = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -73,9 +75,14 @@ const Navbar = () => {
           className="flex items-center gap-3 group"
           onClick={closeMobile}
         >
+          {/* Conteneur du logo image */}
           <div className="relative flex-shrink-0">
-            <div className="w-11 h-11 bg-gradient-to-br from-primary-500 to-primary-700 rounded-xl flex items-center justify-center shadow-lg shadow-primary-500/30 group-hover:shadow-primary-500/50 transition-all">
-              <FaShip className="text-white text-lg" />
+            <div className="w-11 h-11 bg-gradient-to-br from-primary-500 to-primary-700 rounded-xl flex items-center justify-center shadow-lg shadow-primary-500/30 group-hover:shadow-primary-500/50 transition-all p-1.5">
+              <img 
+                src={logoImage} 
+                alt="Élite Transit Service" 
+                className="w-full h-full object-contain"
+              />
             </div>
             <div className="absolute -top-0.5 -right-0.5 w-2.5 h-2.5 bg-green-400 rounded-full border-2 border-white"></div>
           </div>
@@ -93,7 +100,7 @@ const Navbar = () => {
           </div>
         </Link>
 
-        {/* Navigation Desktop */}
+        {/* Navigation Desktop (inchangée) */}
         <nav className="hidden lg:flex items-center gap-1">
           {NAV_LINKS.map((item) => (
             <Link
@@ -117,9 +124,8 @@ const Navbar = () => {
           ))}
         </nav>
 
-        {/* Actions Desktop */}
+        {/* Actions Desktop (inchangées) */}
         <div className="hidden lg:flex items-center gap-3">
-          {/* Panier premium */}
           <Link
             to="/cart"
             className="relative flex items-center gap-2.5 bg-gray-50 hover:bg-primary-50 px-4 py-2.5 rounded-xl transition-all group shadow-sm border border-gray-100 hover:border-primary-200"
@@ -154,19 +160,16 @@ const Navbar = () => {
             </div>
           </Link>
 
-          {/* CTA */}
           <Link
             to="/vehicles"
             className="flex items-center gap-2 bg-primary-500 text-white px-5 py-3 rounded-xl font-bold text-sm transition-all hover:bg-primary-600 shadow-lg shadow-primary-500/25"
           >
-            <FaShip className="text-sm" />
             Voir les offres
           </Link>
         </div>
 
-        {/* Bouton Menu Mobile */}
+        {/* Bouton Menu Mobile (inchangé) */}
         <div className="flex lg:hidden items-center gap-2">
-          {/* Panier mobile */}
           <Link
             to="/cart"
             className="relative p-2.5 rounded-xl bg-gray-50 text-gray-600 shadow-sm"
@@ -195,7 +198,7 @@ const Navbar = () => {
         </div>
       </div>
 
-      {/* Menu Mobile */}
+      {/* Menu Mobile (inchangé) */}
       <AnimatePresence>
         {mobileOpen && (
           <motion.div
@@ -231,7 +234,7 @@ const Navbar = () => {
                   onClick={closeMobile}
                   className="flex items-center justify-center gap-2 w-full bg-primary-500 text-white py-3.5 rounded-xl font-bold hover:bg-primary-600 transition-all"
                 >
-                  <FaShip /> Voir les offres
+                  Voir les offres
                 </Link>
               </div>
             </div>

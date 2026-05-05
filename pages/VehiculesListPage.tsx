@@ -5,8 +5,8 @@ import {
   FaTags, FaGasPump, FaCog, FaDollarSign, FaShip 
 } from 'react-icons/fa';
 import { supabase } from '../lib/supabaseClient';
-import VehicleCard from '../components/cards/VehicleCard';
-import LoadingSpinner from '../components/ui/LoadingSpinner';
+import VehicleCard from '../src/components/cards/VehicleCard';
+import LoadingSpinner from '../src/components/ui/LoadingSpinner';
 import type { Vehicle } from '../types/vehicle';
 
 type Filters = {

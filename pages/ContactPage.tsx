@@ -1,5 +1,5 @@
 
-import CtaSection from '../components/sections/CtaSection';
+import CtaSection from '../src/components/sections/CtaSection';
 
 const ContactPage = () => {
   return (

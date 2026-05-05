@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { FaArrowRight, FaWhatsapp } from 'react-icons/fa';
-import { useProducts } from '../../src/hooks/useProducts';
+import { useProducts } from '../../hooks/useProducts';
 import LoadingSpinner from '../ui/LoadingSpinner';
 import ProductCard from '../cards/ProductCard';
 

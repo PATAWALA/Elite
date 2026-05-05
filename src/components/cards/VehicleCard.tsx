@@ -1,8 +1,8 @@
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { FaStar, FaTachometerAlt, FaGasPump, FaCog, FaShoppingCart, FaCheck } from 'react-icons/fa';
-import type { Vehicle } from '../../types/vehicle';
-import { useCart } from '../../contexts/CartContext';
+import type { Vehicle } from '../../../types/vehicle';
+import { useCart } from '../../../contexts/CartContext';
 import { useState } from 'react';
 
 interface VehicleCardProps {
