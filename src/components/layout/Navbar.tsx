@@ -70,35 +70,35 @@ const Navbar = () => {
         scrolled ? 'py-2.5' : 'py-3.5'
       }`}>
         {/* Logo */}
-        <Link 
-          to="/" 
-          className="flex items-center gap-3 group"
-          onClick={closeMobile}
-        >
-          {/* Conteneur du logo image */}
-          <div className="relative flex-shrink-0">
-            <div className="w-11 h-11 bg-gradient-to-br from-primary-500 to-primary-700 rounded-xl flex items-center justify-center shadow-lg shadow-primary-500/30 group-hover:shadow-primary-500/50 transition-all p-1.5">
-              <img 
-                src={logoImage} 
-                alt="Élite Transit Service" 
-                className="w-full h-full object-contain"
-              />
-            </div>
-            <div className="absolute -top-0.5 -right-0.5 w-2.5 h-2.5 bg-green-400 rounded-full border-2 border-white"></div>
-          </div>
+<Link 
+  to="/" 
+  className="flex items-center gap-3 group"
+  onClick={closeMobile}
+>
+  {/* Conteneur du logo — propre et prestigieux */}
+  <div className="relative flex-shrink-0">
+    <div className="w-12 h-12 bg-white rounded-xl flex items-center justify-center shadow-sm group-hover:shadow-md transition-shadow overflow-hidden">
+      <img 
+        src={logoImage} 
+        alt="Élite Transit Service" 
+        className="w-full h-full object-contain scale-110" 
+      />
+    </div>
+  </div>
 
-          <div className="leading-tight">
-            <span className="block text-base lg:text-lg font-extrabold text-primary-600 tracking-tight">
-              ÉLITE TRANSIT
-            </span>
-            <span className="block text-base lg:text-lg font-extrabold text-gray-900 tracking-tight -mt-0.5">
-              SERVICE
-            </span>
-            <span className="block text-[9px] font-bold uppercase tracking-[0.15em] text-primary-400 -mt-0.5">
-              CMA & CGM
-            </span>
-          </div>
-        </Link>
+  {/* Texte de marque */}
+  <div className="leading-tight">
+    <span className="block text-base lg:text-lg font-extrabold text-primary-600 tracking-tight">
+      ÉLITE TRANSIT
+    </span>
+    <span className="block text-base lg:text-lg font-extrabold text-gray-900 tracking-tight -mt-0.5">
+      SERVICE
+    </span>
+    <span className="block text-[9px] font-bold uppercase tracking-[0.15em] text-primary-400 -mt-0.5">
+      CMA & CGM
+    </span>
+  </div>
+</Link>
 
         {/* Navigation Desktop (inchangée) */}
         <nav className="hidden lg:flex items-center gap-1">
