@@ -1,8 +1,9 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { FaLock, FaEnvelope, FaShip, FaSignInAlt, FaShieldAlt } from 'react-icons/fa';
+import { FaLock, FaEnvelope, FaSignInAlt, FaShieldAlt } from 'react-icons/fa';
 import { useAdminAuth } from '../../contexts/AdminAuthContext';
+import logoImage from '../../assets/images/logo.jpg'; // vrai logo
 
 const AdminLoginPage = () => {
   const { login, isAuthenticated, loading: authLoading } = useAdminAuth();
@@ -63,14 +64,18 @@ const AdminLoginPage = () => {
         transition={{ duration: 0.5 }}
         className="relative w-full max-w-sm"
       >
-        {/* Logo */}
+        {/* Logo avec la vraie image */}
         <div className="text-center mb-6">
           <motion.div
             initial={{ y: -20 }}
             animate={{ y: 0 }}
-            className="w-14 h-14 bg-gradient-to-br from-primary-500 to-primary-700 rounded-2xl flex items-center justify-center mx-auto mb-3 shadow-xl shadow-primary-500/20"
+            className="w-20 h-20 mx-auto mb-3 bg-white rounded-2xl shadow-xl flex items-center justify-center p-2"
           >
-            <FaShip className="text-white text-xl" />
+            <img
+              src={logoImage}
+              alt="Élite Transit Service"
+              className="w-full h-full object-contain"
+            />
           </motion.div>
           <h1 className="text-lg font-bold text-white">Élite Transit Service</h1>
           <p className="text-xs text-gray-500">CMA & CGM</p>

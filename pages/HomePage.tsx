@@ -3,10 +3,12 @@ import FeaturedVehicles from '../src/components/sections/FeaturedVehicles';
 import OtherProducts from '../src/components/sections/OtherProducts';
 import WhyChooseUs from '../src/components/sections/WhyChooseUs';
 import CtaSection from '../src/components/sections/CtaSection';
+import SEO from '../src/components/SEO';
 
 const HomePage = () => {
   return (
     <>
+      <SEO />
       <HeroSection />
       <FeaturedVehicles />
       <OtherProducts />
