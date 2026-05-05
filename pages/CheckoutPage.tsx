@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { FaCheckCircle, FaWhatsapp, FaShip, FaShieldAlt } from 'react-icons/fa';
 import { useCart } from '../contexts/CartContext';

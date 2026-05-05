@@ -95,10 +95,6 @@ const ProductListPage = () => {
     setLoading(false);
   };
 
-  const formatPrice = (price: number) => {
-    return new Intl.NumberFormat('fr-FR').format(price) + ' FCFA';
-  };
-
   const resetFilters = () => {
     setFilters({
       category: 'all',

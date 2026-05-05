@@ -3,8 +3,8 @@ import { useParams, Link, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import {
   FaArrowLeft, FaWhatsapp, FaShoppingCart,
-  FaTruck, FaShieldAlt, FaCheckCircle, FaBox,
-  FaTag, FaChevronLeft, FaChevronRight
+  FaTruck, FaBox,
+  FaTag, 
 } from 'react-icons/fa';
 import { supabase } from '../lib/supabaseClient';
 import { useCart } from '../contexts/CartContext';
