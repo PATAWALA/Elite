@@ -26,6 +26,7 @@ interface Product {
   id: string; name: string; category: string; price: number;
   available: boolean; badge: string; image: string;
   description: string; created_at: string;
+  _priceRaw?: string; 
 }
 
 interface Order {
@@ -209,12 +210,12 @@ const AdminDashboardPage = () => {
   };
 
   const saveProduct = async () => {
-    if (!productForm.name || !productForm.price) return alert('Nom et prix obligatoires');
-    const data = { ...productForm, price: Number(productForm.price) };
-    if (editingProductId) { await supabase.from('products').update(data).eq('id', editingProductId); }
-    else { await supabase.from('products').insert({ ...data, available: true }); }
-    setEditingProductId(null); setProductForm({}); fetchProducts(); fetchStats();
-  };
+  if (!productForm.name || !productForm.price) return alert('Nom et prix obligatoires');
+  const data = { ...productForm, price: Number(productForm.price) };
+  if (editingProductId) { await supabase.from('products').update(data).eq('id', editingProductId); }
+  else { await supabase.from('products').insert({ ...data, available: true }); }
+  setEditingProductId(null); setProductForm({}); fetchProducts(); fetchStats();
+};
 
   const handlePasswordChange = async () => {
     setPasswordError(''); setPasswordSuccess('');
@@ -479,7 +480,17 @@ const AdminDashboardPage = () => {
                     <h3 className="font-bold text-gray-900 mb-4">{editingProductId ? 'Modifier' : 'Ajouter un produit'}</h3>
                     <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3 mb-3">
                       <input placeholder="Nom *" value={productForm.name || ''} onChange={e => setProductForm(f => ({ ...f, name: e.target.value }))} className="input-admin" title="Nom" />
-                      <input placeholder="Prix (ex: 500000FCFA / 800$)" value={productForm.price || ''} onChange={e => setProductForm(f => ({ ...f, price: e.target.value }))} className="input-admin" title="Prix" />
+<input 
+  placeholder="Prix (ex: 500000FCFA / 800$)" 
+  value={productForm._priceRaw || ''} 
+  onChange={e => {
+    const raw = e.target.value;
+    const prices = parseMultiPrice(raw);
+    setProductForm(f => ({ ...f, _priceRaw: raw, price: prices.price_fcfa || 0 }));
+  }} 
+  className="input-admin" 
+  title="Prix" 
+/>
                       <select value={productForm.category || 'Téléphones'} onChange={e => setProductForm(f => ({ ...f, category: e.target.value }))} className="input-admin" title="Catégorie">
                         <option>Téléphones</option><option>Informatique</option><option>TV & Audio</option><option>Électroménager</option><option>Gaming</option><option>Montres</option><option>Maison</option>
                       </select>
